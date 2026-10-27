@@ -19,12 +19,13 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Go tilini ornatish (agy_ide_bridge uchun)
+      - name: Go tilini ornatish
         uses: actions/setup-go@v5
         with:
-          go-version: '1.22'
+          go-version: '1.23'
+          cache: false
 
-      - name: Go bridge binarini yigish (agar mavjud bolsa)
+      - name: Go bridge yigish
         run: |
           if [ -d "agy_ide_bridge" ]; then
             cd agy_ide_bridge
@@ -32,13 +33,13 @@ jobs:
             cd ..
           fi
 
-      - name: Debug APK yigish (Avto-imzolangan)
+      - name: APK yigish
         run: |
           chmod +x gradlew
-          ./gradlew assembleDebug --stacktrace
+          ./gradlew assembleDebug
 
-      - name: Tayyor APK ni yuklash
+      - name: Tayyor APK ni chiqarish
         uses: actions/upload-artifact@v4
         with:
-          name: Antigravity-Debug-APK
-          path: app/build/outputs/apk/debug/*.apk
+          name: Tayyor-APK-Fayllar
+          path: "**/*.apk"
